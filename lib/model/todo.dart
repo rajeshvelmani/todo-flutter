@@ -17,13 +17,11 @@ Future<void> insertTodo(Todo todo) async {
   // Get a reference to the database.
   final Database db = await database;
 
-  int x = await db.insert(
+  await db.insert(
     'todo',
     todo.toMap(),
     conflictAlgorithm: ConflictAlgorithm.replace,
   );
-
-  print(x);
 }
 
 Future<void> updateTodo(Todo todo) async {

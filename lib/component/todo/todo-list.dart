@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import '../../model/todo.dart';
 import 'package:provider/provider.dart';
 
 import '../../model/todo-list-data.dart';
-import '../../model/todo.dart';
+
 import './todo-item.dart';
 
 class TodoList extends StatefulWidget {
