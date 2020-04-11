@@ -22,59 +22,70 @@ class _TodoItemState extends State<TodoItem> {
   @override
   Widget build(BuildContext context) {
     if (!isCircle) {
-      return Container(
-        child: CheckboxListTile(
-          title: Text(todo.title),
-          value: todo.status,
-          onChanged: (bool newValue) {
-            onChange(newValue);
-          },
-          controlAffinity: ListTileControlAffinity.leading,
-        ),
+      return Column(
+        children: [
+          Container(
+            child: CheckboxListTile(
+              title: Text(todo.title),
+              value: todo.status,
+              onChanged: (bool newValue) {
+                onChange(newValue);
+              },
+              controlAffinity: ListTileControlAffinity.leading,
+            ),
+          ),
+          new Divider(),
+        ],
       );
     } else {
-      return Container(
-        child: Row(
-          children: [
-            InkWell(
-              onTap: () {
-                setState(() {
-                  todo.status = !todo.status;
-                });
-              },
-              child: Container(
-                margin: const EdgeInsets.all(10.0),
-                decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: todo.status ? Colors.green : Colors.blue[50]),
-                child: Padding(
-                  padding: const EdgeInsets.all(5.0),
-                  child: todo.status
-                      ? Icon(
-                          Icons.check,
-                          color: Colors.white,
-                        )
-                      : Icon(
-                          Icons.check_box_outline_blank,
-                          color: ThemeData().primaryColor,
-                        ),
+      return Column(
+        children: [
+          Container(
+            child: Row(
+              children: [
+                InkWell(
+                  onTap: () {
+                    setState(() {
+                      todo.status = !todo.status;
+                    });
+                  },
+                  child: Container(
+                    margin: const EdgeInsets.only(
+                      top: 10.0,
+                      bottom: 10.0,
+                      left: 20.0,
+                      right: 20.0,
+                    ),
+                    decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: todo.status ? Colors.green : Colors.blue),
+                    child: Padding(
+                      padding: const EdgeInsets.all(5.0),
+                      child: todo.status
+                          ? Icon(
+                              Icons.check,
+                              color: Colors.white,
+                            )
+                          : Icon(
+                              Icons.check_box_outline_blank,
+                              color: ThemeData().primaryColor,
+                            ),
+                    ),
+                  ),
                 ),
-              ),
-            ),
-            Expanded(
-              // child: TextField(
-              //   controller: new TextEditingController(text: todo.title),
-              // ),
-
-              child: Text(
-                todo.title,
-                style: TextStyle(
-                  fontSize: 18.0,
+                Expanded(
+                  child: Text(
+                    todo.title,
+                    style: TextStyle(
+                      fontSize: 18.0,
+                    ),
+                  ),
                 ),
-              ),
+              ],
             ),
-          ],
-        ),
+          ),
+          new Divider(),
+        ],
       );
     }
   }

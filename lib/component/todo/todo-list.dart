@@ -1,35 +1,43 @@
 import 'package:flutter/material.dart';
-import '../../model/todo.dart';
+import 'package:my_app/model/todo.dart';
+import 'package:provider/provider.dart';
+
+import 'package:my_app/model/todo-list-data.dart';
 
 import './todo-item.dart';
 
 class TodoList extends StatefulWidget {
-  final List<Todo> _todoList;
-
-  const TodoList(this._todoList);
+  const TodoList();
 
   @override
-  _TodoListState createState() => _TodoListState(this._todoList);
+  _TodoListState createState() => _TodoListState();
 }
 
 class _TodoListState extends State<TodoList> {
-  final List<Todo> _todoList;
-
-  List<TodoItem> getTodoItems() {
-    List<TodoItem> todoItems = [];
-    for (final todo in _todoList) {
-      todoItems.add(TodoItem(todo));
-    }
-    return todoItems;
-  }
-
-  _TodoListState(this._todoList);
+  _TodoListState();
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Column(
-        children: getTodoItems(),
+    TodoListData _todoListData = Provider.of<TodoListData>(context);
+    List<Todo> _todoList = _todoListData.todoList;
+
+    if (_todoList.length > 0) {
+      return Container(
+        child: ListView.builder(
+          itemCount: _todoListData.todoList.length,
+          itemBuilder: (context, index) {
+            return TodoItem(_todoListData.todoList[index]);
+          },
+        ),
+      );
+    }
+
+    return Center(
+      child: Text(
+        "Your Todo List Empty",
+        style: TextStyle(
+          fontSize: 20,
+        ),
       ),
     );
   }
