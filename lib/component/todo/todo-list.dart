@@ -15,35 +15,42 @@ class TodoList extends StatefulWidget {
 
 class _TodoListState extends State<TodoList> {
   _TodoListState();
+  TodoListData _todoListData;
+
+  List<Todo> _todoList = [];
+
+  void loadListItem(_) {
+    _.getTodos().then((value) {
+      setState(() {
+        _todoList = value;
+      });
+    });
+  }
 
   @override
-  Widget build(BuildContext context) {
-    TodoListData _todoListData = Provider.of<TodoListData>(context);
-    List<Todo> _todoList = _todoListData.todoList;
+  build(BuildContext context) {
+    _todoListData = Provider.of<TodoListData>(context);
 
     if (_todoList.length > 0) {
       return Container(
         child: ListView.builder(
-          itemCount: _todoListData.todoList.length,
+          itemCount: _todoList.length,
           itemBuilder: (context, index) {
             return InkWell(
               onTap: () {
-                setState(() {
-                  _todoListData.todoList[index].status =
-                      !_todoListData.todoList[index].status;
-                });
+                _todoListData.changeStatus(_todoList[index]);
               },
               child: Column(
                 children: <Widget>[
                   Dismissible(
-                    key: Key(_todoListData.todoList[index].key),
+                    key: Key(_todoList[index].id),
                     direction: DismissDirection.endToStart,
                     child: TodoItem(
-                      _todoListData.todoList[index],
+                      _todoList[index],
                     ),
                     onDismissed: (direction) {
                       Provider.of<TodoListData>(context)
-                          .deleteTodo(_todoListData.todoList[index].key);
+                          .delete(_todoList[index].id);
                     },
                     background: Container(),
                     secondaryBackground: Container(
@@ -70,7 +77,7 @@ class _TodoListState extends State<TodoList> {
         ),
       );
     }
-
+    loadListItem(_todoListData);
     return Center(
       child: Text(
         "Your Todo List is Empty",

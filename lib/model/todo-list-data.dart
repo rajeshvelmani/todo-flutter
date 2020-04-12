@@ -5,15 +5,29 @@ import './todo.dart';
 class TodoListData extends ChangeNotifier {
   List<Todo> todoList = [];
 
+  Future<List<Todo>> getTodos() async {
+    todoList = await todos();
+    print(todoList);
+    return todoList;
+  }
+
   addTodo(title) {
-    String key = 'todo_item_${todoList.length}';
-    todoList.add(Todo(key, title, false));
+    final id = 'todo_item_${todoList.length}';
+    Todo todo = new Todo(id: id, title: title, status: false);
+    insertTodo(todo);
+    todoList.add(todo);
     notifyListeners();
   }
 
-  deleteTodo(key) {
-    var x = todoList.indexWhere((listItem) => listItem.key == key); // 3
+  changeStatus(Todo todo) {
+    todo.status = !todo.status;
+    updateTodo(todo);
+    notifyListeners();
+  }
 
+  delete(id) {
+    var x = todoList.indexWhere((listItem) => listItem.id == id);
+    deleteTodo(id);
     todoList.removeAt(x);
     notifyListeners();
   }
