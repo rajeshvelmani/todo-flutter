@@ -11,17 +11,6 @@ class TodoInput extends StatefulWidget {
 }
 
 class _TodoInputState extends State<TodoInput> {
-  addTodo() {
-    // final value = myController.text;
-
-    // if (value != null && value.length > 0) {
-    //   setState(() {
-    //     Provider.of<TodoListData>(context).addTodo();
-    //   });
-    //   myController.text = '';
-    // }
-  }
-
   final myController = TextEditingController();
 
   @override
@@ -65,14 +54,15 @@ class _TodoInputState extends State<TodoInput> {
               }
             },
             child: Container(
+              padding: EdgeInsets.all(5.0),
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
                 color: ThemeData().primaryColor,
               ),
               child: Icon(
-                Icons.add_circle,
-                size: 45.0,
-                color: Colors.white54,
+                Icons.add,
+                size: 35.0,
+                color: Colors.white70,
               ),
             ),
           )
