@@ -37,17 +37,27 @@ class _TodoInputState extends State<TodoInput> {
       child: Row(
         children: [
           Expanded(
-            child: TextField(
-              decoration: InputDecoration(
-                border: InputBorder.none,
-                hintText: 'Add Todo',
+            child: Container(
+              margin: EdgeInsets.all(5.0),
+              padding: EdgeInsets.all(5.0),
+              decoration: BoxDecoration(
+                color: Colors.black12,
+                borderRadius: BorderRadius.all(
+                  Radius.circular(50),
+                ),
               ),
-              textAlign: TextAlign.center,
-              controller: myController,
+              child: TextField(
+                decoration: InputDecoration(
+                  border: InputBorder.none,
+                  hintText: 'Add Todo',
+                ),
+                textAlign: TextAlign.center,
+                controller: myController,
+              ),
             ),
           ),
-          RaisedButton(
-            onPressed: () {
+          InkWell(
+            onTap: () {
               final value = myController.text;
 
               if (value != null && value.length > 0) {
@@ -55,14 +65,16 @@ class _TodoInputState extends State<TodoInput> {
                 myController.text = '';
               }
             },
-            color: ThemeData().primaryColor,
-            shape: new RoundedRectangleBorder(
-              borderRadius: new BorderRadius.circular(5.0),
-            ),
-            child: Icon(
-              Icons.send,
-              size: 40.0,
-              color: Colors.white54,
+            child: Container(
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: Colors.green,
+              ),
+              child: Icon(
+                Icons.add_circle,
+                size: 50.0,
+                color: Colors.white54,
+              ),
             ),
           )
         ],

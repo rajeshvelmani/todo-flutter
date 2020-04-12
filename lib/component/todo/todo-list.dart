@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:my_app/component/utils/slide-menu.dart';
 import 'package:my_app/model/todo.dart';
 import 'package:provider/provider.dart';
 
@@ -26,7 +27,25 @@ class _TodoListState extends State<TodoList> {
         child: ListView.builder(
           itemCount: _todoListData.todoList.length,
           itemBuilder: (context, index) {
-            return TodoItem(_todoListData.todoList[index]);
+            return Column(
+              key: Key(_todoListData.todoList[index].key),
+              children: [
+                SlideMenu(
+                  child: TodoItem(_todoListData.todoList[index]),
+                  menuItems: <Widget>[
+                    new Container(
+                      child: new IconButton(
+                        onPressed: () {
+                          Provider.of<TodoListData>(context)
+                              .deleteTodo(_todoListData.todoList[index].key);
+                        },
+                        icon: new Icon(Icons.delete),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            );
           },
         ),
       );
@@ -34,7 +53,7 @@ class _TodoListState extends State<TodoList> {
 
     return Center(
       child: Text(
-        "Your Todo List Empty",
+        "Your Todo List is Empty",
         style: TextStyle(
           fontSize: 20,
         ),

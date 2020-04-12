@@ -6,7 +6,15 @@ class TodoListData extends ChangeNotifier {
   List<Todo> todoList = [];
 
   addTodo(title) {
-    todoList.add(Todo(title, false));
+    String key = 'todo_item_${todoList.length}';
+    todoList.add(Todo(key, title, false));
+    notifyListeners();
+  }
+
+  deleteTodo(key) {
+    var x = todoList.indexWhere((listItem) => listItem.key == key); // 3
+
+    todoList.removeAt(x);
     notifyListeners();
   }
 }
