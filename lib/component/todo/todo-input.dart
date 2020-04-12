@@ -39,7 +39,6 @@ class _TodoInputState extends State<TodoInput> {
           Expanded(
             child: Container(
               margin: EdgeInsets.all(5.0),
-              padding: EdgeInsets.all(5.0),
               decoration: BoxDecoration(
                 color: Colors.black12,
                 borderRadius: BorderRadius.all(
@@ -68,11 +67,11 @@ class _TodoInputState extends State<TodoInput> {
             child: Container(
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
-                color: Colors.green,
+                color: ThemeData().primaryColor,
               ),
               child: Icon(
                 Icons.add_circle,
-                size: 50.0,
+                size: 45.0,
                 color: Colors.white54,
               ),
             ),
