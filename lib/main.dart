@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 
 import './component/todo/todo-list.dart';
 import './component/todo/todo-input.dart';
-import 'package:my_app/model/todo-list-data.dart';
+import './model/todo-list-data.dart';
 
 void main() {
   runApp(App());

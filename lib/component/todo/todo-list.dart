@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:my_app/model/todo.dart';
+import '../../model/todo.dart';
 import 'package:provider/provider.dart';
 
-import 'package:my_app/model/todo-list-data.dart';
+import '../../model/todo-list-data.dart';
 
 import './todo-item.dart';
 
