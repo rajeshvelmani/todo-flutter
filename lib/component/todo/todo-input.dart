@@ -30,7 +30,7 @@ class _TodoInputState extends State<TodoInput> {
               margin: EdgeInsets.symmetric(horizontal: 5.0),
               padding: EdgeInsets.symmetric(horizontal: 20.0),
               decoration: BoxDecoration(
-                color: Colors.black12,
+                color: Theme.of(context).dividerColor,
                 borderRadius: BorderRadius.all(
                   Radius.circular(50),
                 ),
@@ -38,7 +38,7 @@ class _TodoInputState extends State<TodoInput> {
               child: TextField(
                 decoration: InputDecoration(
                   border: InputBorder.none,
-                  hintText: 'Add Todo',
+                  hintText: 'Add Task Here',
                 ),
                 textAlign: TextAlign.center,
                 controller: myController,
@@ -50,10 +50,11 @@ class _TodoInputState extends State<TodoInput> {
             backgroundColor: Theme.of(context).primaryColor,
             child: IconButton(
               onPressed: () {
-                final value = myController.text;
+                final value = myController.text.trim();
 
                 if (value != null && value.length > 0) {
-                  Provider.of<TodoListData>(context).addTodo(value);
+                  Provider.of<TodoListData>(context, listen: false)
+                      .addTodo(value);
                   myController.text = '';
                 }
               },

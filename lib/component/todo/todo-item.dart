@@ -4,9 +4,7 @@ import '../../model/todo.dart';
 
 class TodoItem extends StatelessWidget {
   final Todo todo;
-
   TodoItem(this.todo);
-
   @override
   Widget build(BuildContext context) {
     return new ListTile(
@@ -19,7 +17,7 @@ class TodoItem extends StatelessWidget {
           child: todo.status
               ? Icon(
                   Icons.check,
-                  color: Colors.white,
+                  color: Colors.white70,
                   size: 15,
                 )
               : Icon(
@@ -33,7 +31,15 @@ class TodoItem extends StatelessWidget {
         width: MediaQuery.of(context).size.width * 0.8,
         child: Text(
           todo.title,
-          style: TextStyle(fontSize: 20.0),
+          style: TextStyle(
+            fontSize: 20.0,
+            decoration:
+                todo.status ? TextDecoration.lineThrough : TextDecoration.none,
+            color: todo.status
+                ? Theme.of(context).disabledColor
+                : Theme.of(context).textTheme.button.color,
+            fontWeight: todo.status ? FontWeight.w300 : FontWeight.w400,
+          ),
         ),
       ),
     );

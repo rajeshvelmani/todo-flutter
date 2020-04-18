@@ -5,10 +5,17 @@ import './todo.dart';
 class TodoListData extends ChangeNotifier {
   List<Todo> todoList = [];
 
+  bool isFilterApplied = false;
+
   Future<List<Todo>> getTodos() async {
     todoList = await todos();
     print(todoList);
     return todoList;
+  }
+
+  applyFilter() {
+    isFilterApplied = !isFilterApplied;
+    notifyListeners();
   }
 
   addTodo(title) {

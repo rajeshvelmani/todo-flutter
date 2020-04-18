@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import '../component/todo/todo-list.dart';
 import '../component/todo/todo-input.dart';
-import '../model/todo-list-data.dart';
 import '../component/todo/header.dart';
 
 class HomePage extends StatefulWidget {
@@ -18,26 +16,21 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return MultiProvider(
-      providers: [
-        ChangeNotifierProvider(create: (_) => TodoListData()),
-      ],
-      child: Scaffold(
-        body: SafeArea(
-          child: Column(
-            children: [
-              Header(),
-              Expanded(
-                child: Container(
-                  child: TodoList(),
-                ),
+    return Scaffold(
+      body: SafeArea(
+        child: Column(
+          children: [
+            Header(),
+            Expanded(
+              child: Container(
+                child: TodoList(),
               ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: TodoInput(),
-              ),
-            ],
-          ),
+            ),
+            Container(
+              margin: const EdgeInsets.all(15.0),
+              child: TodoInput(),
+            ),
+          ],
         ),
       ),
     );
