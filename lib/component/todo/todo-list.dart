@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import '../../model/todo.dart';
 import 'package:provider/provider.dart';
 
 import '../../model/todo-list-data.dart';
-
+import '../../model/todo.dart';
 import './todo-item.dart';
 
 class TodoList extends StatefulWidget {
@@ -37,6 +36,7 @@ class _TodoListState extends State<TodoList> {
           itemCount: _todoList.length,
           itemBuilder: (context, index) {
             return InkWell(
+              // key: Key(_todoList[index].id),
               onTap: () {
                 _todoListData.changeStatus(_todoList[index]);
               },
@@ -80,7 +80,7 @@ class _TodoListState extends State<TodoList> {
     loadListItem(_todoListData);
     return Center(
       child: Text(
-        "Your Todo List is Empty",
+        "Your ToDo List is Empty",
         style: TextStyle(
           fontSize: 20,
         ),

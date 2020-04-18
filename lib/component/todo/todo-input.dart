@@ -27,7 +27,8 @@ class _TodoInputState extends State<TodoInput> {
         children: [
           Expanded(
             child: Container(
-              margin: EdgeInsets.all(5.0),
+              margin: EdgeInsets.symmetric(horizontal: 5.0),
+              padding: EdgeInsets.symmetric(horizontal: 20.0),
               decoration: BoxDecoration(
                 color: Colors.black12,
                 borderRadius: BorderRadius.all(
@@ -44,25 +45,22 @@ class _TodoInputState extends State<TodoInput> {
               ),
             ),
           ),
-          InkWell(
-            onTap: () {
-              final value = myController.text;
+          CircleAvatar(
+            radius: 25,
+            backgroundColor: Theme.of(context).primaryColor,
+            child: IconButton(
+              onPressed: () {
+                final value = myController.text;
 
-              if (value != null && value.length > 0) {
-                Provider.of<TodoListData>(context).addTodo(value);
-                myController.text = '';
-              }
-            },
-            child: Container(
-              padding: EdgeInsets.all(5.0),
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                color: ThemeData().primaryColor,
-              ),
-              child: Icon(
+                if (value != null && value.length > 0) {
+                  Provider.of<TodoListData>(context).addTodo(value);
+                  myController.text = '';
+                }
+              },
+              icon: Icon(
                 Icons.add,
-                size: 35.0,
-                color: Colors.white70,
+                size: 30.0,
+                color: Colors.white60,
               ),
             ),
           )
