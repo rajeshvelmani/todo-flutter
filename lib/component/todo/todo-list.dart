@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import '../../model/todo.dart';
 import 'package:provider/provider.dart';
 
 import '../../model/todo-list-data.dart';
@@ -17,43 +16,28 @@ class _TodoListState extends State<TodoList> {
   _TodoListState();
   TodoListData _todoListData;
 
-  List<Todo> _todoList;
-
   void loadListItem(_) {
-    _.getTodos().then((value) {
-      setState(() {
-        _todoList = value;
-      });
-    });
+    _.getTodos();
   }
 
   @override
   build(BuildContext context) {
     _todoListData = Provider.of<TodoListData>(context, listen: false);
-    if (_todoList == null) {
+    if (_todoListData.filteredList == null) {
       loadListItem(_todoListData);
 
       return Center(
         child: CircularProgressIndicator(),
       );
     }
-    if (hasListItem()) {
+    if (_todoListData.filteredList.length > 0) {
       return Container(
         child: ListView.separated(
-          itemCount: _todoList.length,
+          itemCount: _todoListData.filteredList.length,
           separatorBuilder: (context, index) {
-            if (_todoListData.isFilterApplied &&
-                _todoList[index].status == true) {
-              return hiddenWidget;
-            }
             return Divider(height: 1.0);
           },
           itemBuilder: (context, index) {
-            if (_todoListData.isFilterApplied &&
-                _todoList[index].status == true) {
-              return hiddenWidget;
-            }
-
             return listViewWidget(index);
           },
         ),
@@ -62,27 +46,13 @@ class _TodoListState extends State<TodoList> {
     return emptyListWidget;
   }
 
-  bool hasListItem() {
-    if (!_todoListData.isFilterApplied) {
-      return _todoList.length > 0;
-    }
-    return _todoList.where((item) => !item.status).toList().length > 0;
-  }
-
-  get hiddenWidget {
-    return Visibility(
-      child: Text("hidden"),
-      visible: false,
-    );
-  }
-
   get emptyListWidget {
     return Center(
       child: Text(
-        "No Tasks",
+        "You're all done",
         style: TextStyle(
           color: Theme.of(context).disabledColor,
-          fontSize: 20,
+          fontSize: 18,
         ),
       ),
     );
@@ -91,18 +61,18 @@ class _TodoListState extends State<TodoList> {
   Widget listViewWidget(index) {
     return InkWell(
       onTap: () {
-        _todoListData.changeStatus(_todoList[index]);
+        _todoListData.changeStatus(_todoListData.filteredList[index]);
       },
       child: Column(
         children: <Widget>[
           Dismissible(
-            key: Key(_todoList[index].id),
+            key: Key(_todoListData.filteredList[index].id),
             direction: DismissDirection.endToStart,
             child: TodoItem(
-              _todoList[index],
+              _todoListData.filteredList[index],
             ),
             onDismissed: (direction) {
-              _todoListData.delete(_todoList[index].id);
+              _todoListData.delete(_todoListData.filteredList[index].id);
             },
             background: Container(),
             secondaryBackground: Container(

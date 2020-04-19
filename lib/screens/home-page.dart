@@ -1,19 +1,11 @@
 import 'package:flutter/material.dart';
+
+import '../component/todo/CurvedNavBar.dart';
 import '../component/todo/todo-list.dart';
 import '../component/todo/todo-input.dart';
 import '../component/todo/header.dart';
 
-class HomePage extends StatefulWidget {
-  @override
-  _HomePageState createState() => _HomePageState();
-}
-
-class _HomePageState extends State<HomePage> {
-  @override
-  void initState() {
-    super.initState();
-  }
-
+class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,12 +19,13 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
             Container(
-              margin: const EdgeInsets.all(15.0),
+              margin: const EdgeInsets.symmetric(vertical: 18.0),
               child: TodoInput(),
             ),
           ],
         ),
       ),
+      bottomNavigationBar: CurvedNavBar(),
     );
   }
 }

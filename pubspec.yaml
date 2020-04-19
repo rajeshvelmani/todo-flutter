@@ -19,6 +19,9 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  
+  
+  curved_navigation_bar: ^0.3.2
 
   flutter_launcher_icons: ^0.7.2
 

@@ -2,31 +2,36 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../model/todo-list-data.dart';
 
-class Header extends StatefulWidget {
-  @override
-  _HeaderState createState() => _HeaderState();
-}
+class Header extends StatelessWidget {
+//   @override
+//   _HeaderState createState() => _HeaderState();
+// }
 
-class _HeaderState extends State<Header> {
-  TodoListData _todoListData;
+// class _HeaderState extends State<Header> {
 
   @override
   Widget build(BuildContext context) {
-    _todoListData = Provider.of<TodoListData>(context, listen: false);
+    TodoListData _todoListData =
+        Provider.of<TodoListData>(context, listen: false);
     return Container(
-      padding: EdgeInsets.symmetric(vertical: 10.0),
+      padding: EdgeInsets.only(
+        top: 20.0,
+        bottom: 15.0,
+      ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Container(
-            padding: const EdgeInsets.only(left: 16.0, bottom: 8.0),
+            padding: const EdgeInsets.only(
+              left: 16.0,
+            ),
             alignment: Alignment.centerLeft,
-            child: titleText,
+            child: getTitleText(_todoListData.pageTitle),
           ),
-          Padding(
-            padding: const EdgeInsets.only(right: 16.0, bottom: 8.0),
-            child: iconButtonForHeader,
-          ),
+          // Padding(
+          //   padding: const EdgeInsets.only(right: 16.0,),
+          //   child: iconButtonForHeader,
+          // ),
         ],
       ),
     );
@@ -38,15 +43,16 @@ class _HeaderState extends State<Header> {
         Icons.filter_list,
         size: 30.0,
       ),
-      onPressed: _todoListData.applyFilter,
+      onPressed: () => {},
     );
   }
 
-  get titleText {
+  getTitleText(String text) {
     return Text(
-      _todoListData.isFilterApplied ? 'Pending' : 'All Tasks',
+      text,
       style: TextStyle(
-        fontSize: 40,
+        fontSize: 32,
+        fontWeight: FontWeight.w400,
       ),
     );
   }

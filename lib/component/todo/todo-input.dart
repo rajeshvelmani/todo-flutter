@@ -3,21 +3,16 @@ import 'package:provider/provider.dart';
 
 import '../../model/todo-list-data.dart';
 
-class TodoInput extends StatefulWidget {
-  TodoInput();
-
-  @override
-  _TodoInputState createState() => _TodoInputState();
-}
-
-class _TodoInputState extends State<TodoInput> {
+class TodoInput extends StatelessWidget {
   final myController = TextEditingController();
 
-  @override
-  void dispose() {
-    // Clean up the controller when the widget is disposed.
-    myController.dispose();
-    super.dispose();
+  addTodo(context) {
+    final value = myController.text.trim();
+
+    if (value != null && value.length > 0) {
+      Provider.of<TodoListData>(context, listen: false).addTodo(value);
+      myController.text = '';
+    }
   }
 
   @override
@@ -36,6 +31,9 @@ class _TodoInputState extends State<TodoInput> {
                 ),
               ),
               child: TextField(
+                onSubmitted: (newvalue) {
+                  addTodo(context);
+                },
                 decoration: InputDecoration(
                   border: InputBorder.none,
                   hintText: 'Add Task Here',
@@ -45,26 +43,18 @@ class _TodoInputState extends State<TodoInput> {
               ),
             ),
           ),
-          CircleAvatar(
-            radius: 25,
-            backgroundColor: Theme.of(context).primaryColor,
-            child: IconButton(
-              onPressed: () {
-                final value = myController.text.trim();
-
-                if (value != null && value.length > 0) {
-                  Provider.of<TodoListData>(context, listen: false)
-                      .addTodo(value);
-                  myController.text = '';
-                }
-              },
-              icon: Icon(
-                Icons.add,
-                size: 30.0,
-                color: Colors.white60,
-              ),
-            ),
-          )
+          // CircleAvatar(
+          //   radius: 25,
+          //   backgroundColor: Theme.of(context).primaryColor,
+          //   child: IconButton(
+          //     onPressed: () => addTodo(context),
+          //     icon: Icon(
+          //       Icons.add,
+          //       size: 30.0,
+          //       color: Colors.white60,
+          //     ),
+          //   ),
+          // )
         ],
       ),
     );

@@ -4,17 +4,29 @@ import './todo.dart';
 
 class TodoListData extends ChangeNotifier {
   List<Todo> todoList = [];
+  List<String> pageTitleList = ['All Tasks', 'Pending', 'Completed'];
+  List<Todo> filteredList;
+  int filteredIndex = 1;
+  String pageTitle = 'Pending';
 
-  bool isFilterApplied = false;
-
-  Future<List<Todo>> getTodos() async {
+  getTodos() async {
     todoList = await todos();
-    print(todoList);
-    return todoList;
+    getTodoList(filteredIndex);
   }
 
-  applyFilter() {
-    isFilterApplied = !isFilterApplied;
+  void getTodoList(index) {
+    switch (index) {
+      case 1:
+        filteredList = todoList.where((todo) => !todo.status).toList();
+        break;
+      case 2:
+        filteredList = todoList.where((todo) => todo.status).toList();
+        break;
+      default:
+        filteredList = todoList;
+    }
+    filteredIndex = index;
+    pageTitle = pageTitleList[index];
     notifyListeners();
   }
 
@@ -23,19 +35,18 @@ class TodoListData extends ChangeNotifier {
     Todo todo = new Todo(id: id, title: title, status: false);
     insertTodo(todo);
     todoList.add(todo);
-    notifyListeners();
+    getTodoList(filteredIndex);
   }
 
   changeStatus(Todo todo) {
     todo.status = !todo.status;
     updateTodo(todo);
-    notifyListeners();
+    getTodoList(filteredIndex);
   }
 
   delete(id) {
-    var x = todoList.indexWhere((listItem) => listItem.id == id);
     deleteTodo(id);
-    todoList.removeAt(x);
-    notifyListeners();
+    todoList.removeWhere((listItem) => listItem.id == id);
+    getTodoList(filteredIndex);
   }
 }

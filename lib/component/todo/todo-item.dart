@@ -38,7 +38,7 @@ class TodoItem extends StatelessWidget {
             color: todo.status
                 ? Theme.of(context).disabledColor
                 : Theme.of(context).textTheme.button.color,
-            fontWeight: todo.status ? FontWeight.w300 : FontWeight.w400,
+            fontWeight: FontWeight.w300,
           ),
         ),
       ),
