@@ -1,13 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
+import './todo-form.dart';
 import '../../model/todo-list-data.dart';
 
 class Header extends StatelessWidget {
-//   @override
-//   _HeaderState createState() => _HeaderState();
-// }
-
-// class _HeaderState extends State<Header> {
+  void _showModalSheet(context) {
+    showModalBottomSheet(
+        context: context,
+        builder: (builder) {
+          return TodoForm();
+        });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -28,22 +32,27 @@ class Header extends StatelessWidget {
             alignment: Alignment.centerLeft,
             child: getTitleText(_todoListData.pageTitle),
           ),
-          // Padding(
-          //   padding: const EdgeInsets.only(right: 16.0,),
-          //   child: iconButtonForHeader,
-          // ),
+          getIconButtonForHeader(context),
         ],
       ),
     );
   }
 
-  get iconButtonForHeader {
-    return IconButton(
-      icon: Icon(
-        Icons.filter_list,
-        size: 30.0,
+  Widget getIconButtonForHeader(context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(
+        horizontal: 8.0,
       ),
-      onPressed: () => {},
+      child: IconButton(
+        icon: Icon(
+          Icons.add,
+          size: 30.0,
+          color: Theme.of(context).accentColor,
+        ),
+        onPressed: () {
+          _showModalSheet(context);
+        },
+      ),
     );
   }
 

@@ -32,7 +32,7 @@ class TodoItem extends StatelessWidget {
         child: Text(
           todo.title,
           style: TextStyle(
-            fontSize: 20.0,
+            fontSize: 24.0,
             decoration:
                 todo.status ? TextDecoration.lineThrough : TextDecoration.none,
             color: todo.status
@@ -41,6 +41,9 @@ class TodoItem extends StatelessWidget {
             fontWeight: FontWeight.w300,
           ),
         ),
+      ),
+      subtitle: Text(
+        todo.getFormatedReminder(),
       ),
     );
   }

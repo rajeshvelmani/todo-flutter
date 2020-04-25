@@ -20,11 +20,15 @@ const MaterialColor black = const MaterialColor(
 ThemeData get lightTheme {
   return ThemeData(
     primarySwatch: black,
+    accentColor: Colors.lightBlue,
+    backgroundColor: Color.fromRGBO(255, 255, 255, 1),
   );
 }
 
 ThemeData get darkTheme {
   return ThemeData.dark().copyWith(
     scaffoldBackgroundColor: Colors.black,
+    accentColor: Colors.lightBlue,
+    backgroundColor: Color.fromRGBO(50, 50, 50, 1),
   );
 }

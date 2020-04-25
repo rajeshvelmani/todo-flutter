@@ -1,11 +1,25 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
+import '../component/utils/local-push-notification.dart';
 import '../component/todo/CurvedNavBar.dart';
 import '../component/todo/todo-list.dart';
-import '../component/todo/todo-input.dart';
 import '../component/todo/header.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
+  @override
+  _HomePageState createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
+
+  @override
+  initState() {
+    super.initState();
+    LocalPushNotification.initialize(flutterLocalNotificationsPlugin);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -18,10 +32,10 @@ class HomePage extends StatelessWidget {
                 child: TodoList(),
               ),
             ),
-            Container(
-              margin: const EdgeInsets.symmetric(vertical: 18.0),
-              child: TodoInput(),
-            ),
+            // Container(
+            //   margin: const EdgeInsets.symmetric(vertical: 18.0),
+            //   child: TodoInput(),
+            // ),
           ],
         ),
       ),

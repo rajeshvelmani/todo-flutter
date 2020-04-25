@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:todo/component/utils/local-push-notification.dart';
 
 import './todo.dart';
 
@@ -30,12 +31,24 @@ class TodoListData extends ChangeNotifier {
     notifyListeners();
   }
 
-  addTodo(title) {
+  addTodo(title, reminder) {
+    // DateTime dt = DateTime.parse(reminder);
     final id = 'todo_item_${todoList.length}';
-    Todo todo = new Todo(id: id, title: title, status: false);
+    Todo todo = new Todo(
+      id: id,
+      title: title,
+      status: false,
+      reminder: reminder,
+    );
     insertTodo(todo);
     todoList.add(todo);
     getTodoList(filteredIndex);
+    LocalPushNotification.scheduleNotification(
+      todoList.length,
+      reminder,
+      'Overdue Task',
+      title,
+    );
   }
 
   changeStatus(Todo todo) {
