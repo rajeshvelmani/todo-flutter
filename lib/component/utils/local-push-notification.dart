@@ -30,30 +30,30 @@ class LocalPushNotification {
     print(payload);
   }
 
-  static Future showNotification(
-    String title,
-    String info,
-  ) async {
-    var androidPlatformChannelSpecifics = new AndroidNotificationDetails(
-      'your channel id',
-      'your channel name',
-      'your channel description',
-      importance: Importance.Max,
-      priority: Priority.High,
-    );
-    var iOSPlatformChannelSpecifics = new IOSNotificationDetails();
-    var platformChannelSpecifics = new NotificationDetails(
-      androidPlatformChannelSpecifics,
-      iOSPlatformChannelSpecifics,
-    );
-    await plugin.show(
-      1,
-      title,
-      info,
-      platformChannelSpecifics,
-      payload: 'Default_Sound',
-    );
-  }
+  // static Future showNotification(
+  //   String title,
+  //   String info,
+  // ) async {
+  //   var androidPlatformChannelSpecifics = new AndroidNotificationDetails(
+  //     'your channel id',
+  //     'your channel name',
+  //     'your channel description',
+  //     importance: Importance.Max,
+  //     priority: Priority.High,
+  //   );
+  //   var iOSPlatformChannelSpecifics = new IOSNotificationDetails();
+  //   var platformChannelSpecifics = new NotificationDetails(
+  //     androidPlatformChannelSpecifics,
+  //     iOSPlatformChannelSpecifics,
+  //   );
+  //   await plugin.show(
+  //     1,
+  //     title,
+  //     info,
+  //     platformChannelSpecifics,
+  //     payload: 'Default_Sound',
+  //   );
+  // }
 
   static Future scheduleNotification(
       int id, DateTime reminderTime, String title, String subTitle) async {
@@ -68,6 +68,8 @@ class LocalPushNotification {
       'your other channel description',
       importance: Importance.Max,
       priority: Priority.High,
+      groupKey: 'group key',
+      setAsGroupSummary: true,
     );
     var iOSPlatformChannelSpecifics = IOSNotificationDetails();
     NotificationDetails platformChannelSpecifics = NotificationDetails(
@@ -81,5 +83,10 @@ class LocalPushNotification {
       scheduledNotificationDateTime,
       platformChannelSpecifics,
     );
+  }
+
+  static cancelNotification(id) async {
+    //TODO - Cancel Scheduled Notifications
+    await plugin.cancel(id);
   }
 }

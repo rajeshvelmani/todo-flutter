@@ -32,8 +32,7 @@ class TodoListData extends ChangeNotifier {
   }
 
   addTodo(title, reminder) {
-    // DateTime dt = DateTime.parse(reminder);
-    final id = 'todo_item_${todoList.length}';
+    final id = '${UniqueKey().hashCode}';
     Todo todo = new Todo(
       id: id,
       title: title,
@@ -44,9 +43,9 @@ class TodoListData extends ChangeNotifier {
     todoList.add(todo);
     getTodoList(filteredIndex);
     LocalPushNotification.scheduleNotification(
-      todoList.length,
+      int.parse(todo.id),
       reminder,
-      'Overdue Task',
+      'Attention',
       title,
     );
   }
@@ -55,11 +54,13 @@ class TodoListData extends ChangeNotifier {
     todo.status = !todo.status;
     updateTodo(todo);
     getTodoList(filteredIndex);
+    LocalPushNotification.cancelNotification(int.parse(todo.id));
   }
 
   delete(id) {
     deleteTodo(id);
     todoList.removeWhere((listItem) => listItem.id == id);
     getTodoList(filteredIndex);
+    LocalPushNotification.cancelNotification(int.parse(id));
   }
 }

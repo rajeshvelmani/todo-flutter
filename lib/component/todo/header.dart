@@ -45,9 +45,9 @@ class Header extends StatelessWidget {
       ),
       child: IconButton(
         icon: Icon(
-          Icons.add,
+          Icons.add_circle,
           size: 30.0,
-          color: Theme.of(context).accentColor,
+          // color: Theme.of(context).accentColor,
         ),
         onPressed: () {
           _showModalSheet(context);

@@ -16,6 +16,7 @@ class _TodoFormState extends State<TodoForm> {
   DateTime _reminder;
   int _limit = 3;
   final _submitText = 'Add';
+  bool _showError = false;
 
   String _validateTitle(String value) {
     if (value.trim().length < _limit) {
@@ -26,7 +27,7 @@ class _TodoFormState extends State<TodoForm> {
   }
 
   _addTodo(context) {
-    if (this._formKey.currentState.validate()) {
+    if (this._formKey.currentState.validate() && _reminder != null) {
       _formKey.currentState.save(); // Save our form now.
 
       Provider.of<TodoListData>(context, listen: false).addTodo(
@@ -35,6 +36,10 @@ class _TodoFormState extends State<TodoForm> {
       );
       Navigator.pop(context);
     }
+
+    setState(() {
+      _showError = true;
+    });
   }
 
   @override
@@ -55,6 +60,7 @@ class _TodoFormState extends State<TodoForm> {
             child: Column(
               children: <Widget>[
                 TextFormField(
+                  style: TextStyle(fontSize: 28.0),
                   decoration: InputDecoration(
                     hintText: 'New Task',
                   ),
@@ -72,7 +78,11 @@ class _TodoFormState extends State<TodoForm> {
                   maxTime: DateTime(2022, 12, 31),
                   callBack: (DateTime selectedDate) {
                     _reminder = selectedDate;
+                    setState(() {
+                      _showError = false;
+                    });
                   },
+                  showError: _showError,
                 ),
                 Container(
                   width: screenSize.width,

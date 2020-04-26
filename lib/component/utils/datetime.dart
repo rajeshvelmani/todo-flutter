@@ -8,6 +8,7 @@ class DateTimeComponent extends StatefulWidget {
   final double height;
   final Color color;
   final Function callBack;
+  final bool showError;
 
   DateTimeComponent({
     Key key,
@@ -16,6 +17,7 @@ class DateTimeComponent extends StatefulWidget {
     @required this.callBack,
     this.height = 210.0,
     this.color = Colors.lightBlue,
+    this.showError = false,
   }) : super(key: key);
 
   @override
@@ -81,6 +83,9 @@ class _DateTimeComponentState extends State<DateTimeComponent> {
                         "$_date",
                         style: TextStyle(
                           fontSize: 18.0,
+                          color: widget.showError
+                              ? Theme.of(context).errorColor
+                              : Theme.of(context).textTheme.title.color,
                         ),
                       ),
                     ],
