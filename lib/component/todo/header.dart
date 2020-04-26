@@ -45,7 +45,7 @@ class Header extends StatelessWidget {
       ),
       child: IconButton(
         icon: Icon(
-          Icons.add_circle,
+          Icons.add_circle_outline,
           size: 30.0,
           // color: Theme.of(context).accentColor,
         ),
